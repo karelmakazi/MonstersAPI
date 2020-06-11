@@ -13,7 +13,7 @@ CREATE TABLE habitats(
 
 CREATE TABLE lives(
   monster character varying(50),
-  habitat character varying(50),
+  habitat character varying(50)
 );
 
 INSERT INTO monsters(name, personality)
