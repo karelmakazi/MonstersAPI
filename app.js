@@ -11,4 +11,4 @@ app.use((err, req, res, next) => {
   res.json(err)
 })
 
-module.exports = app        
+module.exports = app
