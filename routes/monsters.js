@@ -33,12 +33,10 @@ router.post('/', (request, response, next) => {
 
 router.put('/:id', (request, response, next) => {
   const { id } = request.params
-  const { name, personality } = request.body
   const keys = ['name', 'personality']
-
-  //DYNAMIC UPDATING
   const fields = []
-
+  
+  //DYNAMIC UPDATING
   keys.forEach(key => {
     if(request.body[key]) fields.push(key)
   })
@@ -58,6 +56,20 @@ router.put('/:id', (request, response, next) => {
 
 })
 
+router.delete('/:id', (request, response, next) => {
+  const { id } = request.params
+
+  pool.query(
+    'DELETE FROM monsters WHERE id=($1)', 
+    [id],
+    (err, res) => {
+      if (err) return next(err)
+
+      response.redirect('/monsters')
+    }
+
+  )
+})
 
 
 module.exports = router
