@@ -25,10 +25,39 @@ router.post('/', (request, response, next) => {
     [name, personality],
     (err, res) => {
       if (err) return next(err)
-      
+
       response.redirect('/monsters')
     }
   )
 })
+
+router.put('/:id', (request, response, next) => {
+  const { id } = request.params
+  const { name, personality } = request.body
+  const keys = ['name', 'personality']
+
+  //DYNAMIC UPDATING
+  const fields = []
+
+  keys.forEach(key => {
+    if(request.body[key]) fields.push(key)
+  })
+
+  fields.forEach((field, index) => {
+    pool.query(
+      `UPDATE monsters SET ${field}=($1) WHERE id=($2)`,
+      [request.body[field], id],
+      (err, res) => {
+        if (err) return next(err)
+
+        //Redirect only after the array is fully cycled
+        if (index === fields.length -1) response.redirect('/monsters')
+      }
+    )
+  })
+
+})
+
+
 
 module.exports = router
