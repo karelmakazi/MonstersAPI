@@ -25,6 +25,8 @@ router.post('/', (request, response, next) => {
     [name, personality],
     (err, res) => {
       if (err) return next(err)
+      
+      response.redirect('/monsters')
     }
   )
 })
