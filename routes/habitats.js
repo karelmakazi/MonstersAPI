@@ -9,6 +9,19 @@ router.get('/', (request, response, next) => {
   })
 })
 
+router.post('/', (request, response, next) => {
+  const { name, climate, temperature } = request.body
+  pool.query(
+    'INSERT INTO habitats(name, climate, temperature) VALUES($1, $2, $3)', 
+    [name, climate, temperature],
+    (err, res) => {
+      if (err) return next(err)
+
+      response.redirect('/habitats')
+    }
+  )
+})
+
 
 
 module.exports = router
