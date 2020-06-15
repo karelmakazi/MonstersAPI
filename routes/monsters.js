@@ -67,7 +67,6 @@ router.delete('/:id', (request, response, next) => {
 
       response.redirect('/monsters')
     }
-
   )
 })
 
